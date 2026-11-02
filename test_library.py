@@ -18,8 +18,6 @@ def test_add_duplicate_id_raises_error():
         lib.add_book(1, "Another Book", "Someone")
 
 
-
-
 def test_search_book_finds_match_case_insensitive():
     lib = Library()
     lib.add_book(1, "Python Basics", "Ritu")
@@ -33,7 +31,6 @@ def test_search_book_no_match_returns_empty_list():
     lib = Library()
     lib.add_book(1, "Python Basics", "Ritu")
     assert lib.search_book("xyz") == []
-
 
 
 def test_issue_book_marks_book_as_issued():
@@ -57,7 +54,6 @@ def test_issue_nonexistent_book_raises_error():
         lib.issue_book(99)
 
 
-
 def test_return_book_marks_book_as_available():
     lib = Library()
     lib.add_book(1, "Python Basics", "Ritu")
@@ -77,7 +73,6 @@ def test_return_nonexistent_book_raises_error():
     lib = Library()
     with pytest.raises(ValueError, match="Book not found"):
         lib.return_book(99)
-
 
 
 def test_delete_book_removes_book_from_library():

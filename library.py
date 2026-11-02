@@ -6,8 +6,6 @@ class Book:
         self.is_issued = False
 
 
-
-
 class Library:
     def __init__(self):
         self.books = []
@@ -20,7 +18,6 @@ class Library:
         self.books.append(book)
         return book
 
-    
     def search_book(self, keyword):
         keyword = keyword.lower()
         results = []
@@ -29,7 +26,6 @@ class Library:
                 results.append(book)
         return results
 
-    
     def issue_book(self, book_id):
         for book in self.books:
             if book.book_id == book_id:
@@ -39,8 +35,6 @@ class Library:
                 return book
         raise ValueError("Book not found")
 
-
-    
     def return_book(self, book_id):
         for book in self.books:
             if book.book_id == book_id:
@@ -50,7 +44,6 @@ class Library:
                 return book
         raise ValueError("Book not found")
 
-    
     def delete_book(self, book_id):
         for book in self.books:
             if book.book_id == book_id:
