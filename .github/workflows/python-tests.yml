@@ -26,7 +26,7 @@ jobs:
           python -m pip install pytest flake8
 
       - name: Lint with flake8
-        run: python -m flake8 library.py test_library.py
+        run: python -m flake8 library.py test_library.py main.py test_main.py
 
       - name: Run tests
         run: python -m pytest -v
