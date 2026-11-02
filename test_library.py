@@ -95,3 +95,35 @@ def test_delete_nonexistent_book_raises_error():
     lib = Library()
     with pytest.raises(ValueError, match="Book not found"):
         lib.delete_book(99)
+
+
+def test_save_and_load_roundtrip(tmp_path):
+    filename = tmp_path / "books.json"
+    lib = Library()
+    lib.add_book(1, "Python Basics", "Ritu")
+    lib.add_book(2, "Java Guide", "Amit")
+    lib.save_to_file(filename)
+
+    new_lib = Library()
+    new_lib.load_from_file(filename)
+    assert len(new_lib.books) == 2
+    assert new_lib.books[0].title == "Python Basics"
+    assert new_lib.books[1].author == "Amit"
+
+
+def test_load_preserves_issued_status(tmp_path):
+    filename = tmp_path / "books.json"
+    lib = Library()
+    lib.add_book(1, "Python Basics", "Ritu")
+    lib.issue_book(1)
+    lib.save_to_file(filename)
+
+    new_lib = Library()
+    new_lib.load_from_file(filename)
+    assert new_lib.books[0].is_issued is True
+
+
+def test_load_missing_file_gives_empty_library(tmp_path):
+    lib = Library()
+    lib.load_from_file(tmp_path / "does_not_exist.json")
+    assert lib.books == []
