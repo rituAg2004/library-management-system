@@ -1,3 +1,6 @@
+import json
+
+
 class Book:
     def __init__(self, book_id, title, author):
         self.book_id = book_id
@@ -52,3 +55,28 @@ class Library:
                 self.books.remove(book)
                 return book
         raise ValueError("Book not found")
+
+    def save_to_file(self, filename):
+        data = []
+        for book in self.books:
+            data.append({
+                "book_id": book.book_id,
+                "title": book.title,
+                "author": book.author,
+                "is_issued": book.is_issued,
+            })
+        with open(filename, "w") as f:
+            json.dump(data, f, indent=2)
+
+    def load_from_file(self, filename):
+        try:
+            with open(filename, "r") as f:
+                data = json.load(f)
+        except FileNotFoundError:
+            self.books = []
+            return
+        self.books = []
+        for item in data:
+            book = Book(item["book_id"], item["title"], item["author"])
+            book.is_issued = item["is_issued"]
+            self.books.append(book)
