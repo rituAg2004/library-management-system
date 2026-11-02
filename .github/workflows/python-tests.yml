@@ -30,3 +30,14 @@ jobs:
 
       - name: Run tests
         run: python -m pytest -v
+
+      - name: Package application
+        run: |
+          mkdir dist
+          zip dist/library-app.zip library.py main.py
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: library-app
+          path: dist/library-app.zip
